@@ -326,9 +326,11 @@ function DatingCalendar() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const firstFieldRef = useRef(null);
   const modalRef = useRef(null);
+  const triggerRef = useRef(null);
 
   useEffect(() => {
     if (!showBookingForm) return;
+    triggerRef.current = document.activeElement;
     firstFieldRef.current?.focus();
     const onKeyDown = (e) => {
       if (e.key === 'Escape') { setShowBookingForm(false); return; }
@@ -347,7 +349,10 @@ function DatingCalendar() {
       }
     };
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      triggerRef.current?.focus?.();
+    };
   }, [showBookingForm]);
 
   useEffect(() => {
