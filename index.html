@@ -748,12 +748,12 @@ function DatingCalendar() {
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
-          <button onClick={prevMonth} disabled={!canNavigateBack()} style={{
+          <button onClick={prevMonth} disabled={!canNavigateBack()} aria-label="Previous month" style={{
             background: 'none', border: 'none', color: canNavigateBack() ? C.cyan : 'rgba(255,255,255,0.15)',
             fontSize: '20px', cursor: canNavigateBack() ? 'pointer' : 'default', fontWeight: '700',
           }}>←</button>
           <h2 style={{ fontSize: '16px', margin: 0, fontWeight: '700', color: C.text, letterSpacing: '-0.003em' }}>{monthName}</h2>
-          <button onClick={nextMonth} disabled={!canNavigateForward()} style={{
+          <button onClick={nextMonth} disabled={!canNavigateForward()} aria-label="Next month" style={{
             background: 'none', border: 'none', color: canNavigateForward() ? C.cyan : 'rgba(255,255,255,0.15)',
             fontSize: '20px', cursor: canNavigateForward() ? 'pointer' : 'default', fontWeight: '700',
           }}>→</button>
@@ -777,6 +777,7 @@ function DatingCalendar() {
                 key={day}
                 onClick={() => handleDateClick(day)}
                 disabled={!isClickable}
+                aria-label={`${day}, ${isClickable ? 'available' : booked ? 'booked' : 'unavailable'}`}
                 style={{
                   aspectRatio: '1', borderRadius: '12px',
                   border: booked ? `1.5px solid ${C.glassBorder}` : available ? `1.5px solid ${C.cyan}` : 'none',
@@ -802,14 +803,14 @@ function DatingCalendar() {
             position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(5,3,10,0.7)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px', backdropFilter: 'blur(6px)',
           }}>
-            <div {...tilt(4)} style={{
+            <div {...tilt(4)} role="dialog" aria-modal="true" aria-labelledby="booking-modal-title" style={{
               background: 'linear-gradient(160deg, rgba(40,20,60,0.85), rgba(15,10,25,0.95))',
               backdropFilter: 'blur(20px)', padding: '40px', borderRadius: '16px', maxWidth: '400px', width: '100%',
               border: `1.5px solid ${C.glassBorder}`, maxHeight: '90vh', overflowY: 'auto',
               boxShadow: `0 25px 70px rgba(0,0,0,0.6), 0 0 50px ${C.purple}33`,
               animation: 'modalIn 0.25s cubic-bezier(0.16,1,0.3,1)',
             }}>
-              <h3 style={{ marginTop: 0, marginBottom: '28px', fontSize: '18px', fontWeight: '700', color: C.text, letterSpacing: '-0.003em' }}>
+              <h3 id="booking-modal-title" style={{ marginTop: 0, marginBottom: '28px', fontSize: '18px', fontWeight: '700', color: C.text, letterSpacing: '-0.003em' }}>
                 {new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDate.day).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} at 8 PM
               </h3>
               <form onSubmit={handleBooking}>
@@ -819,8 +820,9 @@ function DatingCalendar() {
                   { label: 'Preferred bar or neighborhood', key: 'location', type: 'text', placeholder: 'Midtown, West Village, etc.', required: false },
                 ].map(field => (
                   <div key={field.key} style={{ marginBottom: '20px' }}>
-                    <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', color: C.muted, fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{field.label}</label>
+                    <label htmlFor={`field-${field.key}`} style={{ display: 'block', marginBottom: '8px', fontSize: '12px', color: C.muted, fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{field.label}</label>
                     <input
+                      id={`field-${field.key}`}
                       type={field.type}
                       value={formData[field.key]}
                       onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
@@ -837,8 +839,9 @@ function DatingCalendar() {
                   </div>
                 ))}
                 <div style={{ marginBottom: '20px' }}>
-                  <label style={{ display: 'block', marginBottom: '8px', fontSize: '12px', color: C.muted, fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px' }}>A little about you (optional)</label>
+                  <label htmlFor="field-about" style={{ display: 'block', marginBottom: '8px', fontSize: '12px', color: C.muted, fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px' }}>A little about you (optional)</label>
                   <textarea
+                    id="field-about"
                     value={formData.about}
                     onChange={(e) => setFormData({ ...formData, about: e.target.value })}
                     placeholder="What do you like? Anything I should know about you?"
