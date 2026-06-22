@@ -86,6 +86,16 @@
   </noscript>
   <div id="root"></div>
 
+  <script>
+    window.addEventListener('error', function (e) {
+      if (e.target && e.target.tagName === 'SCRIPT' && /unpkg\.com/.test(e.target.src || '')) {
+        document.getElementById('root').innerHTML =
+          '<div style="max-width: 480px; margin: 80px auto; padding: 24px; font-family: sans-serif; color: #F5F3FF; background: #150a28; border-radius: 12px; text-align: center;">' +
+          'Having trouble loading. Please check your connection and refresh the page.' +
+          '</div>';
+      }
+    }, true);
+  </script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
