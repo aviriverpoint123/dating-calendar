@@ -315,6 +315,17 @@ function DatingCalendar() {
   const [lastBooking, setLastBooking] = useState(null);
   const [emailError, setEmailError] = useState('');
   const [showStickyCTA, setShowStickyCTA] = useState(false);
+  const firstFieldRef = useRef(null);
+
+  useEffect(() => {
+    if (!showBookingForm) return;
+    firstFieldRef.current?.focus();
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setShowBookingForm(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [showBookingForm]);
 
   useEffect(() => {
     const loadBookings = async () => {
@@ -823,6 +834,7 @@ function DatingCalendar() {
                     <label htmlFor={`field-${field.key}`} style={{ display: 'block', marginBottom: '8px', fontSize: '12px', color: C.muted, fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{field.label}</label>
                     <input
                       id={`field-${field.key}`}
+                      ref={field.key === 'name' ? firstFieldRef : undefined}
                       type={field.type}
                       value={formData[field.key]}
                       onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
