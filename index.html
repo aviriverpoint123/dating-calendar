@@ -918,6 +918,7 @@ function DatingCalendar() {
                     value={formData.about}
                     onChange={(e) => setFormData({ ...formData, about: e.target.value })}
                     placeholder="What do you like? Anything I should know about you?"
+                    maxLength={500}
                     style={{
                       width: '100%', padding: '12px', borderRadius: '8px', border: `1.5px solid ${C.glassBorder}`,
                       background: 'rgba(255,255,255,0.04)', color: C.text, boxSizing: 'border-box', fontSize: '14px',
