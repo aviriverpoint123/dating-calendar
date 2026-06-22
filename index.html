@@ -922,6 +922,7 @@ function DatingCalendar() {
                     onFocus={(e) => { e.target.style.borderColor = C.cyan; e.target.style.boxShadow = `0 0 15px ${C.cyan}44`; }}
                     onBlur={(e) => { e.target.style.borderColor = C.glassBorder; e.target.style.boxShadow = 'none'; }}
                   />
+                  <p style={{ margin: '6px 0 0 0', fontSize: '11px', color: C.dim, textAlign: 'right', fontWeight: '600' }}>{formData.about.length}/500</p>
                 </div>
                 <div style={{ display: 'flex', gap: '12px' }}>
                   <button type="button" onClick={() => setShowBookingForm(false)} style={{
