@@ -325,12 +325,26 @@ function DatingCalendar() {
   const [showStickyCTA, setShowStickyCTA] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const firstFieldRef = useRef(null);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     if (!showBookingForm) return;
     firstFieldRef.current?.focus();
     const onKeyDown = (e) => {
-      if (e.key === 'Escape') setShowBookingForm(false);
+      if (e.key === 'Escape') { setShowBookingForm(false); return; }
+      if (e.key === 'Tab' && modalRef.current) {
+        const focusables = [...modalRef.current.querySelectorAll('input, textarea, button, a[href]')].filter(el => !el.disabled);
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
@@ -827,7 +841,7 @@ function DatingCalendar() {
             position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(5,3,10,0.7)',
             display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000, padding: '20px', backdropFilter: 'blur(6px)',
           }}>
-            <div {...tilt(4)} role="dialog" aria-modal="true" aria-labelledby="booking-modal-title" style={{
+            <div {...tilt(4)} ref={modalRef} role="dialog" aria-modal="true" aria-labelledby="booking-modal-title" style={{
               background: 'linear-gradient(160deg, rgba(40,20,60,0.85), rgba(15,10,25,0.95))',
               backdropFilter: 'blur(20px)', padding: '40px', borderRadius: '16px', maxWidth: '400px', width: '100%',
               border: `1.5px solid ${C.glassBorder}`, maxHeight: '90vh', overflowY: 'auto',
