@@ -31,6 +31,22 @@
       .stat-grid { grid-template-columns: repeat(2, 1fr) !important; row-gap: 20px !important; }
     }
 
+    button { -webkit-tap-highlight-color: transparent; }
+    button:active { transform: scale(0.97); }
+    button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible {
+      outline: 2px solid #22D3EE;
+      outline-offset: 3px;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.94) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes dayPop {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     @keyframes fall {
       to { transform: translateY(100vh) rotateZ(360deg); opacity: 0; }
     }
@@ -707,9 +723,19 @@ function DatingCalendar() {
 
         <div style={{ marginBottom: '32px' }}>
           <h1 style={{ fontFamily: C.serif, fontSize: '38px', fontWeight: '600', margin: '0 0 12px 0', color: C.text, textShadow: `0 0 30px ${C.purple}44` }}>Pick your date</h1>
-          <p style={{ color: C.muted, margin: 0, fontSize: '15px', fontWeight: '500' }}>
+          <p style={{ color: C.muted, margin: '0 0 16px 0', fontSize: '15px', fontWeight: '500' }}>
             Available times. {bookings.length < 2 ? 2 - bookings.length : 1} spot{bookings.length < 2 ? 's' : ''} left.
           </p>
+          <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700',
+              color: C.gold, background: 'rgba(255,184,77,0.1)', border: `1px solid ${C.gold}33`, borderRadius: '20px', padding: '6px 12px',
+            }}>🕗 8:00 PM</span>
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: '700',
+              color: C.cyan, background: 'rgba(34,211,238,0.1)', border: `1px solid ${C.cyan}33`, borderRadius: '20px', padding: '6px 12px',
+            }}>📍 You pick the neighborhood</span>
+          </div>
         </div>
 
         <div style={{ display: 'flex', gap: '20px', marginBottom: '24px', flexWrap: 'wrap' }}>
@@ -761,6 +787,8 @@ function DatingCalendar() {
                   transition: 'all 0.2s', textDecoration: booked ? 'line-through' : 'none',
                   boxShadow: available && !booked ? `0 0 15px ${C.cyan}33` : 'none',
                   letterSpacing: '-0.003em',
+                  animation: `dayPop 0.35s ease ${Math.min(day * 0.012, 0.3)}s`,
+                  animationFillMode: 'backwards',
                 }}
                 onMouseEnter={(e) => { if (isClickable) { e.target.style.boxShadow = `0 0 25px ${C.cyan}77`; e.target.style.transform = 'translateY(-2px) scale(1.04)'; } }}
                 onMouseLeave={(e) => { if (isClickable) { e.target.style.boxShadow = `0 0 15px ${C.cyan}33`; e.target.style.transform = 'translateY(0) scale(1)'; } }}
@@ -779,6 +807,7 @@ function DatingCalendar() {
               backdropFilter: 'blur(20px)', padding: '40px', borderRadius: '16px', maxWidth: '400px', width: '100%',
               border: `1.5px solid ${C.glassBorder}`, maxHeight: '90vh', overflowY: 'auto',
               boxShadow: `0 25px 70px rgba(0,0,0,0.6), 0 0 50px ${C.purple}33`,
+              animation: 'modalIn 0.25s cubic-bezier(0.16,1,0.3,1)',
             }}>
               <h3 style={{ marginTop: 0, marginBottom: '28px', fontSize: '18px', fontWeight: '700', color: C.text, letterSpacing: '-0.003em' }}>
                 {new Date(currentDate.getFullYear(), currentDate.getMonth(), selectedDate.day).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} at 8 PM
