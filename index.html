@@ -250,15 +250,19 @@ const FAQAccordion = ({ items }) => {
     <div>
       {items.map((item, i) => (
         <div key={i} style={{ borderBottom: i < items.length - 1 ? `1px solid ${C.glassBorder}` : 'none', padding: '20px 0' }}>
-          <button onClick={() => setOpen(open === i ? null : i)} style={{
-            width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-            background: 'none', border: 'none', color: C.text, cursor: 'pointer', textAlign: 'left',
-            fontSize: '15px', fontWeight: '700', padding: 0, letterSpacing: '-0.003em',
-          }}>
+          <button
+            onClick={() => setOpen(open === i ? null : i)}
+            aria-expanded={open === i}
+            aria-controls={`faq-answer-${i}`}
+            style={{
+              width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              background: 'none', border: 'none', color: C.text, cursor: 'pointer', textAlign: 'left',
+              fontSize: '15px', fontWeight: '700', padding: 0, letterSpacing: '-0.003em',
+            }}>
             <span>{item.q}</span>
             <span style={{ color: C.pink, fontSize: '18px', transform: open === i ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.25s ease', flexShrink: 0, marginLeft: '12px' }}>+</span>
           </button>
-          <div style={{ maxHeight: open === i ? '200px' : '0px', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
+          <div id={`faq-answer-${i}`} style={{ maxHeight: open === i ? '200px' : '0px', overflow: 'hidden', transition: 'max-height 0.3s ease' }}>
             <p style={{ margin: '14px 0 0 0', fontSize: '14px', color: C.muted, lineHeight: '1.6', fontWeight: '500' }}>{item.a}</p>
           </div>
         </div>
@@ -568,9 +572,9 @@ function DatingCalendar() {
 
           <Reveal>
             <div style={{ marginBottom: '72px' }}>
-              <p style={{ fontSize: '13px', fontWeight: '700', color: C.dim, textTransform: 'uppercase', letterSpacing: '0.6px', textAlign: 'center', margin: '0 0 28px 0' }}>
+              <h2 style={{ fontSize: '13px', fontWeight: '700', color: C.dim, textTransform: 'uppercase', letterSpacing: '0.6px', textAlign: 'center', margin: '0 0 28px 0' }}>
                 Why people say yes
-              </p>
+              </h2>
               <div style={{ display: 'grid', gap: '16px' }}>
                 {[
                   { icon: '💬', title: 'Real conversation', text: 'Good conversation. The kind where you lose track of time.' },
@@ -594,9 +598,9 @@ function DatingCalendar() {
 
           <Reveal>
             <div style={{ marginBottom: '72px' }}>
-              <p style={{ fontSize: '13px', fontWeight: '700', color: C.dim, textTransform: 'uppercase', letterSpacing: '0.6px', textAlign: 'center', margin: '0 0 28px 0' }}>
+              <h2 style={{ fontSize: '13px', fontWeight: '700', color: C.dim, textTransform: 'uppercase', letterSpacing: '0.6px', textAlign: 'center', margin: '0 0 28px 0' }}>
                 How it works
-              </p>
+              </h2>
               <div style={{ display: 'grid', gap: '20px' }}>
                 {[
                   { step: '01', title: 'Pick a date', text: 'Choose an open evening from the calendar. Tuesdays through Fridays, 8 PM.' },
@@ -617,9 +621,9 @@ function DatingCalendar() {
 
           <Reveal>
             <div style={{ marginBottom: '56px' }}>
-              <p style={{ fontSize: '13px', fontWeight: '700', color: C.dim, textTransform: 'uppercase', letterSpacing: '0.6px', textAlign: 'center', margin: '0 0 12px 0' }}>
+              <h2 style={{ fontSize: '13px', fontWeight: '700', color: C.dim, textTransform: 'uppercase', letterSpacing: '0.6px', textAlign: 'center', margin: '0 0 12px 0' }}>
                 Questions
-              </p>
+              </h2>
               <div style={{ background: C.glass, backdropFilter: 'blur(16px)', borderRadius: '16px', padding: '8px 22px', border: `1.5px solid ${C.glassBorder}` }}>
                 <FAQAccordion items={[
                   { q: 'Is this a real, in-person date?', a: 'Yes. Public bar or coffee spot, your call on the neighborhood, 8 PM on a weeknight.' },
