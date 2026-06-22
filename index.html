@@ -932,7 +932,7 @@ function DatingCalendar() {
                     background: 'rgba(255,255,255,0.03)', color: C.muted, cursor: 'pointer', fontWeight: '700', fontSize: '14px',
                     transition: 'all 0.2s', letterSpacing: '-0.003em',
                   }}>Back</button>
-                  <button type="submit" disabled={isSubmitting} {...tilt(10)} style={{
+                  <button type="submit" disabled={isSubmitting} aria-live="polite" {...tilt(10)} style={{
                     flex: 1, padding: '12px', borderRadius: '8px', border: 'none',
                     background: `linear-gradient(135deg, ${C.pink} 0%, ${C.purple} 100%)`, color: '#fff',
                     cursor: isSubmitting ? 'default' : 'pointer', opacity: isSubmitting ? 0.75 : 1,
