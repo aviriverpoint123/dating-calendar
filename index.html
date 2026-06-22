@@ -887,9 +887,9 @@ function DatingCalendar() {
               </h3>
               <form onSubmit={handleBooking}>
                 {[
-                  { label: 'Name', key: 'name', type: 'text', placeholder: 'Your name', required: true },
-                  { label: 'Phone', key: 'phone', type: 'tel', placeholder: '+1 (555) 123-4567', required: false },
-                  { label: 'Preferred bar or neighborhood', key: 'location', type: 'text', placeholder: 'Midtown, West Village, etc.', required: false },
+                  { label: 'Name', key: 'name', type: 'text', placeholder: 'Your name', required: true, autoComplete: 'name' },
+                  { label: 'Phone', key: 'phone', type: 'tel', placeholder: '+1 (555) 123-4567', required: false, autoComplete: 'tel' },
+                  { label: 'Preferred bar or neighborhood', key: 'location', type: 'text', placeholder: 'Midtown, West Village, etc.', required: false, autoComplete: 'off' },
                 ].map(field => (
                   <div key={field.key} style={{ marginBottom: '20px' }}>
                     <label htmlFor={`field-${field.key}`} style={{ display: 'block', marginBottom: '8px', fontSize: '12px', color: C.muted, fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{field.label}</label>
@@ -897,6 +897,7 @@ function DatingCalendar() {
                       id={`field-${field.key}`}
                       ref={field.key === 'name' ? firstFieldRef : undefined}
                       type={field.type}
+                      autoComplete={field.autoComplete}
                       value={formData[field.key]}
                       onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
                       placeholder={field.placeholder}
