@@ -737,7 +737,7 @@ function DatingCalendar() {
               }}>
                 📅 Add to calendar
               </a>
-              <a href={`mailto:avi@fundwell.com?subject=Cancel booking for ${lastBooking?.day}/${lastBooking?.month}`} style={{
+              <a href={`mailto:avi@fundwell.com?subject=${encodeURIComponent(`Cancel booking for ${lastBooking?.day}/${lastBooking?.month}`)}&body=${encodeURIComponent(`Reference code: ${lastBooking?.cancellationToken}`)}`} style={{
                 color: C.pink, fontSize: '13px', fontWeight: '700', textDecoration: 'none', letterSpacing: '-0.003em',
               }}>
                 Need to cancel? Let me know
