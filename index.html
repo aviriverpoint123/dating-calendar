@@ -443,6 +443,21 @@ function DatingCalendar() {
 
   const isAvailableDay = (dayOfWeek) => dayOfWeek >= 1 && dayOfWeek <= 4;
 
+  const openSlotsThisMonth = (() => {
+    const startDate = new Date(2026, 5, 18);
+    const year = startDate.getFullYear();
+    const month = startDate.getMonth();
+    const daysInThisMonth = new Date(year, month + 1, 0).getDate();
+    let count = 0;
+    for (let day = 1; day <= daysInThisMonth; day++) {
+      if (!isAvailableDay(new Date(year, month, day).getDay())) continue;
+      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      if (bookings.some((b) => b.date === dateStr) || blockedDates.includes(dateStr)) continue;
+      count++;
+    }
+    return count;
+  })();
+
   const getDaysInMonth = (date) => new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 
   const getFirstDayOfMonth = (date) => new Date(date.getFullYear(), date.getMonth(), 1).getDay();
@@ -583,7 +598,7 @@ function DatingCalendar() {
             Pick a date →
           </button>
           <p style={{ fontSize: '13px', color: C.dim, margin: '0 0 72px 0', textAlign: 'center', fontWeight: '500' }}>
-            Two spots open this month
+            {openSlotsThisMonth} {openSlotsThisMonth === 1 ? 'spot' : 'spots'} open this month
           </p>
 
           <Reveal>
