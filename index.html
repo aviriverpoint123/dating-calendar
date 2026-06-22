@@ -500,7 +500,7 @@ function DatingCalendar() {
         <FloatingBackground />
         <GrainOverlay />
 
-        <div style={{ maxWidth: '720px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+        <main style={{ maxWidth: '720px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '28px 0' }}>
             <div style={{ fontSize: '13px', fontWeight: '700', color: C.dim, letterSpacing: '1.5px', textTransform: 'uppercase' }}>
               Date Night
@@ -638,7 +638,7 @@ function DatingCalendar() {
           <p style={{ fontSize: '12px', color: C.dim, margin: 0, textAlign: 'center', fontWeight: '500', lineHeight: '1.7' }}>
             Real person. No bots. No spam — just one good night.
           </p>
-        </div>
+        </main>
 
         {showStickyCTA && (
           <div style={{
@@ -671,7 +671,7 @@ function DatingCalendar() {
         <FloatingBackground />
         <GrainOverlay />
         <Confetti />
-        <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <main style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <h1 style={{ fontFamily: C.serif, fontSize: '46px', fontWeight: '600', margin: '0 0 16px 0', letterSpacing: '-0.01em', textShadow: `0 0 30px ${C.pink}55` }}>You're set.</h1>
           <p style={{ fontSize: '18px', color: C.muted, margin: '0 0 48px 0', fontWeight: '500' }}>Looking forward to meeting you</p>
 
@@ -737,7 +737,7 @@ function DatingCalendar() {
           </button>
 
           <p style={{ color: C.dim, fontSize: '12px', marginTop: '24px', textAlign: 'center', fontWeight: '500' }}>Confirmation sent</p>
-        </div>
+        </main>
       </div>
     );
   }
@@ -760,7 +760,7 @@ function DatingCalendar() {
     }}>
       <FloatingBackground />
       <GrainOverlay />
-      <div style={{ maxWidth: '700px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <main style={{ maxWidth: '700px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <button onClick={() => setStep('landing')} style={{
           background: 'none', border: 'none', color: C.pink, fontSize: '14px', cursor: 'pointer',
           marginBottom: '32px', fontWeight: '700', letterSpacing: '-0.003em',
@@ -921,7 +921,7 @@ function DatingCalendar() {
             </div>
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 }
