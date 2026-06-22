@@ -819,11 +819,13 @@ function DatingCalendar() {
           <button onClick={prevMonth} disabled={!canNavigateBack()} aria-label="Previous month" style={{
             background: 'none', border: 'none', color: canNavigateBack() ? C.cyan : 'rgba(255,255,255,0.15)',
             fontSize: '20px', cursor: canNavigateBack() ? 'pointer' : 'default', fontWeight: '700',
+            padding: '12px', minWidth: '44px', minHeight: '44px',
           }}>←</button>
           <h2 style={{ fontSize: '16px', margin: 0, fontWeight: '700', color: C.text, letterSpacing: '-0.003em' }}>{monthName}</h2>
           <button onClick={nextMonth} disabled={!canNavigateForward()} aria-label="Next month" style={{
             background: 'none', border: 'none', color: canNavigateForward() ? C.cyan : 'rgba(255,255,255,0.15)',
             fontSize: '20px', cursor: canNavigateForward() ? 'pointer' : 'default', fontWeight: '700',
+            padding: '12px', minWidth: '44px', minHeight: '44px',
           }}>→</button>
         </div>
 
