@@ -345,7 +345,6 @@ function DatingCalendar() {
     name: '',
     phone: '',
     location: '',
-    notes: '',
     about: '',
   });
   const [lastBooking, setLastBooking] = useState(null);
@@ -491,7 +490,6 @@ function DatingCalendar() {
       name: formData.name,
       phone: formData.phone,
       location: formData.location,
-      notes: formData.notes,
       about: formData.about,
       time: '8:00 PM',
       bookedAt: new Date().toISOString(),
@@ -500,7 +498,7 @@ function DatingCalendar() {
     setTimeout(() => {
       setBookings((prev) => [...prev, newBooking]);
       setLastBooking(newBooking);
-      setFormData({ name: '', phone: '', location: '', notes: '', about: '' });
+      setFormData({ name: '', phone: '', location: '', about: '' });
       setShowBookingForm(false);
       setIsSubmitting(false);
       setStep('success');
