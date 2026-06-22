@@ -239,10 +239,10 @@ const Reveal = ({ children, delay = 0 }) => {
 const StepIndicator = ({ active }) => {
   const steps = ['Pick a date', 'Your details', "You're set"];
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
+    <div role="navigation" aria-label="Booking progress" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
       {steps.map((label, i) => (
         <React.Fragment key={label}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div aria-current={i === active ? 'step' : undefined} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{
               width: '22px', height: '22px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: '11px', fontWeight: '700', flexShrink: 0,
