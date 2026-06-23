@@ -718,25 +718,25 @@ function DatingCalendar() {
   };
 
   // Intro Page
-  if (step === ‘intro’) {
+  if (step === 'intro') {
     const introPageStyle = {
-      background: C.pageBg, backgroundSize: ‘160% 160%’, color: C.text,
-      minHeight: ‘100vh’, display: ‘flex’, flexDirection: ‘column’,
-      alignItems: ‘center’, justifyContent: ‘center’,
-      fontFamily: ‘"DM Sans", Outfit, sans-serif’, cursor: ‘pointer’,
-      position: ‘relative’, overflow: ‘hidden’, padding: ‘40px 24px’,
-      textAlign: ‘center’, userSelect: ‘none’
+      background: C.pageBg, backgroundSize: '160% 160%', color: C.text,
+      minHeight: '100vh', display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
+      fontFamily: '"DM Sans", Outfit, sans-serif', cursor: 'pointer',
+      position: 'relative', overflow: 'hidden', padding: '40px 24px',
+      textAlign: 'center', userSelect: 'none'
     };
     // Screen 0: pretty
     if (introStep === 0) {
       return /*#__PURE__*/React.createElement("div", {
         onClick: () => setIntroStep(1), style: introPageStyle
       }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
-      /*#__PURE__*/React.createElement("div", { style: { position: ‘relative’, zIndex: 1 } },
-        /*#__PURE__*/React.createElement("div", { style: { fontSize: ‘96px’, marginBottom: ‘32px’, animation: ‘bob 3s ease-in-out infinite’, display: ‘inline-block’, filter: `drop-shadow(0 0 40px ${C.pink}88)` } }, "🩷"),
-        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: ‘42px’, fontWeight: ‘600’, lineHeight: ‘1.15’, letterSpacing: ‘-0.01em’, margin: ‘0 0 20px 0’, color: C.text, textShadow: `0 0 40px ${C.purple}55` } }, "If you’re reading this…"),
-        /*#__PURE__*/React.createElement("p", { style: { fontSize: ‘28px’, fontWeight: ‘600’, color: C.pink, margin: ‘0 0 56px 0’, textShadow: `0 0 20px ${C.pink}66` } }, "it means you’re pretty."),
-        /*#__PURE__*/React.createElement("div", { style: { fontSize: ‘14px’, fontWeight: ‘700’, color: C.dim, letterSpacing: ‘0.05em’, animation: ‘bob 2s ease-in-out infinite’ } }, "tap anywhere to continue →")
+      /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1 } },
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '96px', marginBottom: '32px', animation: 'bob 3s ease-in-out infinite', display: 'inline-block', filter: `drop-shadow(0 0 40px ${C.pink}88)` } }, "🩷"),
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55` } }, "If you're reading this…"),
+        /*#__PURE__*/React.createElement("p", { style: { fontSize: '28px', fontWeight: '600', color: C.pink, margin: '0 0 56px 0', textShadow: `0 0 20px ${C.pink}66` } }, "it means you're pretty."),
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: '700', color: C.dim, letterSpacing: '0.05em', animation: 'bob 2s ease-in-out infinite' } }, "tap anywhere to continue →")
       ));
     }
     // Screen 1: intelligent
@@ -744,11 +744,11 @@ function DatingCalendar() {
       return /*#__PURE__*/React.createElement("div", {
         onClick: () => setIntroStep(2), style: introPageStyle
       }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
-      /*#__PURE__*/React.createElement("div", { style: { position: ‘relative’, zIndex: 1 } },
-        /*#__PURE__*/React.createElement("div", { style: { fontSize: ‘96px’, marginBottom: ‘32px’, animation: ‘bob 3s ease-in-out infinite’, display: ‘inline-block’, filter: `drop-shadow(0 0 40px ${C.purple}88)` } }, "🧠"),
-        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: ‘42px’, fontWeight: ‘600’, lineHeight: ‘1.15’, letterSpacing: ‘-0.01em’, margin: ‘0 0 20px 0’, color: C.text, textShadow: `0 0 40px ${C.purple}55` } }, "and intelligent, of course."),
-        /*#__PURE__*/React.createElement("p", { style: { fontSize: ‘18px’, fontWeight: ‘500’, color: C.muted, margin: ‘0 0 56px 0’ } }, "pretty was just the opening line."),
-        /*#__PURE__*/React.createElement("div", { style: { fontSize: ‘14px’, fontWeight: ‘700’, color: C.dim, letterSpacing: ‘0.05em’, animation: ‘bob 2s ease-in-out infinite’ } }, "tap to keep going →")
+      /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1 } },
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '96px', marginBottom: '32px', animation: 'bob 3s ease-in-out infinite', display: 'inline-block', filter: `drop-shadow(0 0 40px ${C.purple}88)` } }, "🧠"),
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55` } }, "and intelligent, of course."),
+        /*#__PURE__*/React.createElement("p", { style: { fontSize: '18px', fontWeight: '500', color: C.muted, margin: '0 0 56px 0' } }, "pretty was just the opening line."),
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: '700', color: C.dim, letterSpacing: '0.05em', animation: 'bob 2s ease-in-out infinite' } }, "tap to keep going →")
       ));
     }
     // Screen 2: right?
@@ -756,29 +756,29 @@ function DatingCalendar() {
       return /*#__PURE__*/React.createElement("div", {
         onClick: () => setIntroStep(3), style: introPageStyle
       }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
-      /*#__PURE__*/React.createElement("div", { style: { position: ‘relative’, zIndex: 1 } },
-        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: ‘72px’, fontWeight: ‘700’, margin: ‘0 0 32px 0’, color: C.text, textShadow: `0 0 40px ${C.purple}55` } }, "right?"),
-        /*#__PURE__*/React.createElement("div", { style: { fontSize: ‘14px’, fontWeight: ‘700’, color: C.dim, letterSpacing: ‘0.05em’, animation: ‘bob 2s ease-in-out infinite’ } }, "tap →")
+      /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1 } },
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '72px', fontWeight: '700', margin: '0 0 32px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55` } }, "right?"),
+        /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: '700', color: C.dim, letterSpacing: '0.05em', animation: 'bob 2s ease-in-out infinite' } }, "tap →")
       ));
     }
     // Screen 3: quiz
-    const answers = [{ label: ‘6-7’, wrong: true }, { label: ‘21’, wrong: false }, { label: ‘19’, wrong: true }];
+    const answers = [{ label: '6-7', wrong: true }, { label: '21', wrong: false }, { label: '19', wrong: true }];
     return /*#__PURE__*/React.createElement("div", {
-      style: { ...introPageStyle, cursor: ‘default’ }
+      style: { ...introPageStyle, cursor: 'default' }
     }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
-    /*#__PURE__*/React.createElement("div", { style: { position: ‘relative’, zIndex: 1, width: ‘100%’, maxWidth: ‘360px’ } },
-      /*#__PURE__*/React.createElement("div", { style: { fontSize: ‘48px’, marginBottom: ‘24px’ } }, "🤔"),
-      /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: ‘36px’, fontWeight: ‘600’, margin: ‘0 0 12px 0’, color: C.text } }, "quick question."),
-      /*#__PURE__*/React.createElement("p", { style: { fontSize: ‘22px’, fontWeight: ‘700’, color: C.pink, margin: ‘0 0 36px 0’ } }, "what’s 9 + 10?"),
-      wrongAnswer && /*#__PURE__*/React.createElement("p", { style: { color: C.gold, fontSize: ‘14px’, fontWeight: ‘600’, marginBottom: ‘16px’ } }, "…really? try again."),
-      /*#__PURE__*/React.createElement("div", { style: { display: ‘flex’, flexDirection: ‘column’, gap: ‘12px’ } },
+    /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1, width: '100%', maxWidth: '360px' } },
+      /*#__PURE__*/React.createElement("div", { style: { fontSize: '48px', marginBottom: '24px' } }, "🤔"),
+      /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '36px', fontWeight: '600', margin: '0 0 12px 0', color: C.text } }, "quick question."),
+      /*#__PURE__*/React.createElement("p", { style: { fontSize: '22px', fontWeight: '700', color: C.pink, margin: '0 0 36px 0' } }, "what's 9 + 10?"),
+      wrongAnswer && /*#__PURE__*/React.createElement("p", { style: { color: C.gold, fontSize: '14px', fontWeight: '600', marginBottom: '16px' } }, "…really? try again."),
+      /*#__PURE__*/React.createElement("div", { style: { display: 'flex', flexDirection: 'column', gap: '12px' } },
         answers.map(a => /*#__PURE__*/React.createElement("button", {
           key: a.label,
-          onClick: () => { if (a.wrong) { setWrongAnswer(true); } else { setStep(‘landing’); } },
+          onClick: () => { if (a.wrong) { setWrongAnswer(true); } else { setStep('landing'); } },
           style: {
-            padding: ‘16px’, borderRadius: ‘14px’, fontSize: ‘20px’, fontWeight: ‘700’,
-            cursor: ‘pointer’, border: `1.5px solid ${C.glassBorder}`,
-            background: C.glass, color: C.text, transition: ‘all 0.15s’
+            padding: '16px', borderRadius: '14px', fontSize: '20px', fontWeight: '700',
+            cursor: 'pointer', border: `1.5px solid ${C.glassBorder}`,
+            background: C.glass, color: C.text, transition: 'all 0.15s'
           },
           onMouseEnter: e => { e.currentTarget.style.background = `${C.purple}33`; e.currentTarget.style.borderColor = C.purple; },
           onMouseLeave: e => { e.currentTarget.style.background = C.glass; e.currentTarget.style.borderColor = C.glassBorder; }
