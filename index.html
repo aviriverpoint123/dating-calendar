@@ -579,19 +579,30 @@ function DatingCalendar() {
     }
     const generateBlockedDates = () => {
       const blocked = [];
-      for (let month = 5; month <= 7; month++) {
+      for (let month = 5; month <= 11; month++) {
         const daysInMonth = new Date(2026, month + 1, 0).getDate();
-        const numToBlock = Math.floor(daysInMonth * 0.75);
-        for (let i = 0; i < numToBlock; i++) {
-          let day = Math.floor(Math.random() * daysInMonth) + 1;
-          let dayOfWeek = new Date(2026, month, day).getDay();
-          while (dayOfWeek < 1 || dayOfWeek > 4) {
-            day = Math.floor(Math.random() * daysInMonth) + 1;
-            dayOfWeek = new Date(2026, month, day).getDay();
+        // Group Mon-Thu dates by calendar week
+        const weekMap = {};
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dow = new Date(2026, month, day).getDay();
+          if (dow >= 1 && dow <= 4) {
+            const weekKey = Math.ceil((day + new Date(2026, month, 1).getDay()) / 7);
+            if (!weekMap[weekKey]) weekMap[weekKey] = [];
+            weekMap[weekKey].push(day);
           }
-          const dateStr = `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-          if (!blocked.includes(dateStr)) blocked.push(dateStr);
         }
+        // For each week keep 1-2 open, block the rest
+        Object.values(weekMap).forEach(days => {
+          const keepCount = days.length > 2 ? 2 : 1;
+          const keep = new Set();
+          while (keep.size < keepCount) keep.add(days[Math.floor(Math.random() * days.length)]);
+          days.forEach(day => {
+            if (!keep.has(day)) {
+              const dateStr = `2026-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+              if (!blocked.includes(dateStr)) blocked.push(dateStr);
+            }
+          });
+        });
       }
       setBlockedDates(blocked);
     };
