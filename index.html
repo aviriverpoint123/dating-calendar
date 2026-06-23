@@ -774,7 +774,7 @@ function DatingCalendar() {
         fontWeight: '500',
         lineHeight: '1.6'
       }
-    }, "I'm looking to meet interesting people and have a real conversation. Pick a time that works for you.")), /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
+    }, "Pick a night that works for you. I'll take care of the rest.")), /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
       ...tilt(8),
       style: {
         background: C.glass,
@@ -818,14 +818,14 @@ function DatingCalendar() {
         textTransform: 'uppercase',
         letterSpacing: '0.6px'
       }
-    }, "Actual humans. Actual conversations."), /*#__PURE__*/React.createElement("p", {
+    }, "Avi · NYC"), /*#__PURE__*/React.createElement("p", {
       style: {
         margin: 0,
         fontSize: '15px',
         fontWeight: '600',
         color: C.muted
       }
-    }, "One date at a time, no apps in between."))), /*#__PURE__*/React.createElement("div", {
+    }, "I actually show up."))), /*#__PURE__*/React.createElement("div", {
       className: "stat-grid",
       style: {
         display: 'grid',
@@ -836,15 +836,15 @@ function DatingCalendar() {
       }
     }, [{
       value: '45+',
-      label: 'Good nights',
+      label: 'Dates',
       color: C.pink
     }, {
       value: '4.8★',
-      label: 'Recommend',
+      label: 'Would go again',
       color: C.gold
     }, {
       value: '0',
-      label: 'Flakes',
+      label: 'Cancels',
       color: C.cyan
     }, {
       value: '100%',
@@ -905,23 +905,23 @@ function DatingCalendar() {
         textAlign: 'center',
         margin: '0 0 28px 0'
       }
-    }, "Why people say yes"), /*#__PURE__*/React.createElement("div", {
+    }, "What people say"), /*#__PURE__*/React.createElement("div", {
       style: {
         display: 'grid',
         gap: '16px'
       }
     }, [{
       icon: '💬',
-      title: 'Real conversation',
-      text: 'Good conversation. The kind where you lose track of time.'
+      title: 'Good conversation',
+      text: 'The kind where you forget to check your phone.'
     }, {
       icon: '👂',
-      title: 'Actually listens',
-      text: 'Someone who actually listens, not just waiting for their turn to talk.'
+      title: 'Easy to talk to',
+      text: 'No agenda, no weirdness. Just two people figuring out if there\'s something there.'
     }, {
       icon: '🎲',
-      title: 'Low risk, high upside',
-      text: 'Best case: you meet someone worth your time. Worst case: solid material for your therapist.'
+      title: 'Low stakes',
+      text: 'One drink, no pressure. Best case you have a great night. Worst case, a good story.'
     }].map((card, idx) => /*#__PURE__*/React.createElement("div", {
       key: idx,
       ...tilt(5),
@@ -977,7 +977,7 @@ function DatingCalendar() {
     }, [{
       step: '01',
       title: 'Pick a date',
-      text: 'Choose an open evening from the calendar. Mondays through Thursdays, 8 PM.'
+      text: 'Pick any open evening on the calendar.'
     }, {
       step: '02',
       title: 'Drop your details',
@@ -1042,10 +1042,10 @@ function DatingCalendar() {
     }, /*#__PURE__*/React.createElement(FAQAccordion, {
       items: [{
         q: 'Is this a real, in-person date?',
-        a: 'Yes. Public bar or coffee spot, your call on the neighborhood, 8 PM on a weeknight.'
+        a: 'Yes. Bar or coffee, your call on the neighborhood.'
       }, {
         q: 'Who is this, exactly?',
-        a: "Just someone looking to meet new people and have a good conversation — not a bot, not an agency."
+        a: "Avi. I work in finance in NYC and made this because I got tired of dating apps."
       }, {
         q: 'What if I need to cancel?',
         a: "No hassle. Your confirmation page has a direct link to email me to cancel or reschedule."
@@ -1062,7 +1062,7 @@ function DatingCalendar() {
         fontWeight: '500',
         lineHeight: '1.7'
       }
-    }, "Real person. No bots. No spam — just one good night.")), showStickyCTA && /*#__PURE__*/React.createElement("div", {
+    }, "Made by Avi. If you're reading this, you're already halfway there.")), showStickyCTA && /*#__PURE__*/React.createElement("div", {
       style: {
         position: 'fixed',
         bottom: 0,
@@ -1596,7 +1596,7 @@ function DatingCalendar() {
     weekday: 'short',
     month: 'short',
     day: 'numeric'
-  }), " at 8 PM"), /*#__PURE__*/React.createElement("form", {
+  })), /*#__PURE__*/React.createElement("form", {
     onSubmit: handleBooking
   }, [{
     label: 'Name',
