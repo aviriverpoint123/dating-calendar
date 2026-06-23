@@ -915,13 +915,13 @@ function DatingCalendar() {
       title: 'Good conversation',
       text: 'The kind where you forget to check your phone.'
     }, {
-      icon: '👂',
+      icon: '🍷',
       title: 'Easy to talk to',
       text: 'No agenda, no weirdness. Just two people figuring out if there\'s something there.'
     }, {
       icon: '🎲',
       title: 'Low stakes',
-      text: 'One drink, no pressure. Best case you have a great night. Worst case, a good story.'
+      text: 'Best case: you meet someone worth your time. Worst case: solid material for your therapist.'
     }].map((card, idx) => /*#__PURE__*/React.createElement("div", {
       key: idx,
       ...tilt(5),
@@ -957,68 +957,6 @@ function DatingCalendar() {
       }
     }, card.text))))))), /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
       style: {
-        marginBottom: '72px'
-      }
-    }, /*#__PURE__*/React.createElement("h2", {
-      style: {
-        fontSize: '13px',
-        fontWeight: '700',
-        color: C.dim,
-        textTransform: 'uppercase',
-        letterSpacing: '0.6px',
-        textAlign: 'center',
-        margin: '0 0 28px 0'
-      }
-    }, "How it works"), /*#__PURE__*/React.createElement("div", {
-      style: {
-        display: 'grid',
-        gap: '20px'
-      }
-    }, [{
-      step: '01',
-      title: 'Pick a date',
-      text: 'Pick any open evening on the calendar.'
-    }, {
-      step: '02',
-      title: 'Drop your details',
-      text: 'Your name and a neighborhood you like. Phone is optional.'
-    }, {
-      step: '03',
-      title: 'Show up',
-      text: "I'll confirm by email. Show up, be yourself, see what happens."
-    }].map((item, idx) => /*#__PURE__*/React.createElement("div", {
-      key: idx,
-      style: {
-        display: 'flex',
-        gap: '18px',
-        alignItems: 'flex-start'
-      }
-    }, /*#__PURE__*/React.createElement("div", {
-      style: {
-        fontFamily: C.serif,
-        fontSize: '24px',
-        fontWeight: '600',
-        color: C.dim,
-        flexShrink: 0,
-        width: '40px'
-      }
-    }, item.step), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", {
-      style: {
-        margin: '0 0 4px 0',
-        fontSize: '15px',
-        fontWeight: '700',
-        color: C.text
-      }
-    }, item.title), /*#__PURE__*/React.createElement("p", {
-      style: {
-        margin: 0,
-        fontSize: '14px',
-        color: C.muted,
-        fontWeight: '500',
-        lineHeight: '1.55'
-      }
-    }, item.text))))))), /*#__PURE__*/React.createElement(Reveal, null, /*#__PURE__*/React.createElement("div", {
-      style: {
         marginBottom: '56px'
       }
     }, /*#__PURE__*/React.createElement("h2", {
@@ -1042,16 +980,16 @@ function DatingCalendar() {
     }, /*#__PURE__*/React.createElement(FAQAccordion, {
       items: [{
         q: 'Is this a real, in-person date?',
-        a: 'Yes. Bar or coffee, your call on the neighborhood.'
+        a: 'Yes. Like, physically in the same room. Wild concept, I know.'
       }, {
-        q: 'Who is this, exactly?',
-        a: "Avi. I work in finance in NYC and made this because I got tired of dating apps."
+        q: 'Who are you?',
+        a: "Avi. Finance guy, NYC. Built this because Hinge kept showing me my ex's friends."
       }, {
         q: 'What if I need to cancel?',
-        a: "No hassle. Your confirmation page has a direct link to email me to cancel or reschedule."
+        a: "Life happens. Email me, no drama. I will probably be sad about it though."
       }, {
         q: 'Is my info kept private?',
-        a: 'Your details are only used to plan the date. Nothing is shared or sold.'
+        a: "Yes. I'm not selling your data. I'm not even sure how I would do that."
       }]
     })))), /*#__PURE__*/React.createElement("p", {
       style: {
