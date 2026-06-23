@@ -531,6 +531,7 @@ function DatingCalendar() {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
+    instagram: '',
     location: '',
     about: ''
   });
@@ -667,7 +668,7 @@ function DatingCalendar() {
     });
     setShowBookingForm(true);
   };
-  const handleBooking = e => {
+  const handleBooking = async e => {
     e.preventDefault();
     setIsSubmitting(true);
     const newBooking = {
@@ -683,19 +684,28 @@ function DatingCalendar() {
       bookedAt: new Date().toISOString(),
       cancellationToken: Math.random().toString(36).substring(7)
     };
-    setTimeout(() => {
-      setBookings(prev => [...prev, newBooking]);
-      setLastBooking(newBooking);
-      setFormData({
-        name: '',
-        phone: '',
-        location: '',
-        about: ''
+    try {
+      await fetch('https://formspree.io/f/xqevazjy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: newBooking.name,
+          phone_or_instagram: newBooking.phone || 'not provided',
+          date: newBooking.date,
+          neighborhood: newBooking.location || 'not provided',
+          about: newBooking.about || 'not provided',
+          booked_at: newBooking.bookedAt
+        })
       });
-      setShowBookingForm(false);
-      setIsSubmitting(false);
-      setStep('success');
-    }, 500);
+    } catch (err) {
+      console.error('Formspree submit failed:', err);
+    }
+    setBookings(prev => [...prev, newBooking]);
+    setLastBooking(newBooking);
+    setFormData({ name: '', phone: '', instagram: '', location: '', about: '' });
+    setShowBookingForm(false);
+    setIsSubmitting(false);
+    setStep('success');
   };
 
   // Intro Page
@@ -1261,7 +1271,7 @@ function DatingCalendar() {
         letterSpacing: '-0.003em'
       }
     }, "📅 Add to calendar"), /*#__PURE__*/React.createElement("a", {
-      href: `mailto:avi@fundwell.com?subject=${encodeURIComponent(`Cancel booking for ${lastBooking?.day}/${lastBooking?.month}`)}&body=${encodeURIComponent(`Reference code: ${lastBooking?.cancellationToken}`)}`,
+      href: `mailto:avilitee@gmail.com?subject=${encodeURIComponent(`Cancel booking for ${lastBooking?.day}/${lastBooking?.month}`)}&body=${encodeURIComponent(`Reference code: ${lastBooking?.cancellationToken}`)}`,
       style: {
         color: C.pink,
         fontSize: '13px',
@@ -1586,10 +1596,10 @@ function DatingCalendar() {
     required: true,
     autoComplete: 'name'
   }, {
-    label: 'Phone',
+    label: 'Phone / Instagram handle (optional)',
     key: 'phone',
     type: 'tel',
-    placeholder: '+1 (555) 123-4567',
+    placeholder: '+1 (555) 123-4567 or @handle',
     required: false,
     autoComplete: 'tel'
   }, {
