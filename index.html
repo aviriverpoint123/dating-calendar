@@ -522,7 +522,7 @@ const Confetti = () => {
   })));
 };
 function DatingCalendar() {
-  const [step, setStep] = useState('landing');
+  const [step, setStep] = useState('intro');
   const [currentDate, setCurrentDate] = useState(new Date(2026, 5, 18));
   const [bookings, setBookings] = useState([]);
   const [blockedDates, setBlockedDates] = useState([]);
@@ -686,6 +686,78 @@ function DatingCalendar() {
       setStep('success');
     }, 500);
   };
+
+  // Intro Page
+  if (step === 'intro') {
+    return /*#__PURE__*/React.createElement("div", {
+      onClick: () => setStep('landing'),
+      style: {
+        background: C.pageBg,
+        backgroundSize: '160% 160%',
+        color: C.text,
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: '"DM Sans", Outfit, sans-serif',
+        cursor: 'pointer',
+        position: 'relative',
+        overflow: 'hidden',
+        padding: '40px 24px',
+        textAlign: 'center',
+        userSelect: 'none'
+      }
+    },
+    /*#__PURE__*/React.createElement(FloatingBackground, null),
+    /*#__PURE__*/React.createElement(GrainOverlay, null),
+    /*#__PURE__*/React.createElement("div", {
+      style: { position: 'relative', zIndex: 1 }
+    },
+      /*#__PURE__*/React.createElement("div", {
+        style: {
+          fontSize: '96px',
+          marginBottom: '32px',
+          animation: 'bob 3s ease-in-out infinite',
+          display: 'inline-block',
+          filter: `drop-shadow(0 0 40px ${C.pink}88)`
+        }
+      }, "🩷"),
+      /*#__PURE__*/React.createElement("h1", {
+        style: {
+          fontFamily: C.serif,
+          fontSize: '42px',
+          fontWeight: '600',
+          lineHeight: '1.15',
+          letterSpacing: '-0.01em',
+          margin: '0 0 20px 0',
+          color: C.text,
+          textShadow: `0 0 40px ${C.purple}55`
+        }
+      }, "If you’re reading this…"),
+      /*#__PURE__*/React.createElement("p", {
+        style: {
+          fontSize: '28px',
+          fontWeight: '600',
+          color: C.pink,
+          margin: '0 0 56px 0',
+          textShadow: `0 0 20px ${C.pink}66`
+        }
+      }, "it means you’re pretty."),
+      /*#__PURE__*/React.createElement("div", {
+        style: {
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontSize: '14px',
+          fontWeight: '700',
+          color: C.dim,
+          letterSpacing: '0.05em',
+          animation: 'bob 2s ease-in-out infinite'
+        }
+      }, "tap anywhere to continue →")
+    ));
+  }
 
   // Landing Page
   if (step === 'landing') {
@@ -979,17 +1051,17 @@ function DatingCalendar() {
       }
     }, /*#__PURE__*/React.createElement(FAQAccordion, {
       items: [{
-        q: 'Is this a real, in-person date?',
-        a: 'Yes. Like, physically in the same room. Wild concept, I know.'
+        q: 'Do I have to be funny?',
+        a: "That's my job. You just have to show up."
       }, {
         q: 'Who are you?',
-        a: "Avi. Finance guy, NYC. Built this because Hinge kept showing me my ex's friends."
+        a: "Avi — cute smiley guy, finance, NYC. Built this because Hinge kept showing me my ex's friends."
       }, {
         q: 'What if I need to cancel?',
         a: "Life happens. Email me, no drama. I will probably be sad about it though."
       }, {
-        q: 'Is my info kept private?',
-        a: "Yes. I'm not selling your data. I'm not even sure how I would do that."
+        q: 'Is my info safe?',
+        a: "Yes. Your name isn't ending up in a spreadsheet called 'prospects'."
       }]
     })))), /*#__PURE__*/React.createElement("p", {
       style: {
@@ -1329,20 +1401,7 @@ function DatingCalendar() {
       borderRadius: '20px',
       padding: '6px 12px'
     }
-  }, "🕗 8:00 PM"), /*#__PURE__*/React.createElement("span", {
-    style: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: '6px',
-      fontSize: '12px',
-      fontWeight: '700',
-      color: C.cyan,
-      background: 'rgba(34,211,238,0.1)',
-      border: `1px solid ${C.cyan}33`,
-      borderRadius: '20px',
-      padding: '6px 12px'
-    }
-  }, "📍 You pick the neighborhood"))), /*#__PURE__*/React.createElement("div", {
+  }, "🕗 8:00 PM"))), /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       gap: '20px',
