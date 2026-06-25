@@ -631,6 +631,17 @@ function DatingCalendar() {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  useEffect(() => {
+    if (step === 'landing') {
+      window.scrollTo(0, 0);
+      const t1 = setTimeout(() => {
+        window.scrollBy({ top: 120, behavior: 'smooth' });
+        const t2 = setTimeout(() => window.scrollBy({ top: -120, behavior: 'smooth' }), 800);
+        return () => clearTimeout(t2);
+      }, 600);
+      return () => clearTimeout(t1);
+    }
+  }, [step]);
   const isDateBooked = day => {
     const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     return bookings.some(b => b.date === dateStr) || blockedDates.includes(dateStr);
@@ -767,17 +778,6 @@ function DatingCalendar() {
       /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: '700', color: C.dim, letterSpacing: '0.05em', animation: 'bob 2s ease-in-out infinite' } }, "tap to continue →")
     ));
   }
-
-  // Landing Page
-  useEffect(() => {
-    if (step === 'landing') {
-      window.scrollTo(0, 0);
-      setTimeout(() => {
-        window.scrollBy({ top: 120, behavior: 'smooth' });
-        setTimeout(() => window.scrollBy({ top: -120, behavior: 'smooth' }), 800);
-      }, 600);
-    }
-  }, [step]);
 
   if (step === 'landing') {
     return /*#__PURE__*/React.createElement("div", {
