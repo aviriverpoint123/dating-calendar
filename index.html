@@ -77,6 +77,44 @@
       50% { background-position: 50% 35%; }
     }
 
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0);     }
+    }
+    @keyframes introFade {
+      from { opacity: 0; transform: scale(0.95) translateY(20px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0);    }
+    }
+    @keyframes ctaPulse {
+      0%,100% { box-shadow: 0 0 30px #FF2E9A55, 0 10px 30px rgba(0,0,0,0.4); }
+      50%     { box-shadow: 0 0 70px #FF2E9Aaa, 0 10px 50px rgba(0,0,0,0.5), 0 0 110px #8B5CF655; }
+    }
+    @keyframes stickyUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+    @keyframes heroGlow {
+      0%,100% { text-shadow: 0 0 40px rgba(139,92,246,0.33); }
+      50%     { text-shadow: 0 0 80px rgba(139,92,246,0.65), 0 0 130px rgba(255,46,154,0.28); }
+    }
+    @keyframes cardBreath {
+      0%,100% { box-shadow: 0 25px 60px rgba(0,0,0,0.35), 0 0 50px rgba(139,92,246,0.08); }
+      50%     { box-shadow: 0 25px 70px rgba(0,0,0,0.45), 0 0 70px rgba(139,92,246,0.18); }
+    }
+    @keyframes glowBorder {
+      0%,100% { border-color: rgba(255,255,255,0.14); }
+      50%     { border-color: rgba(255,46,154,0.32); }
+    }
+    @keyframes statPop {
+      0%   { opacity: 0; transform: scale(0.7) translateY(10px); }
+      60%  { transform: scale(1.12) translateY(-3px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -469,7 +507,10 @@ const FAQAccordion = ({
     style: {
       maxHeight: open === i ? '200px' : '0px',
       overflow: 'hidden',
-      transition: 'max-height 0.3s ease'
+      transition: 'max-height 0.5s cubic-bezier(0.16,1,0.3,1)',
+      opacity: open === i ? 1 : 0,
+      transform: open === i ? 'translateY(0)' : 'translateY(-6px)',
+      transitionProperty: 'max-height, opacity, transform'
     }
   }, /*#__PURE__*/React.createElement("p", {
     style: {
@@ -496,7 +537,7 @@ const AnimatedCounter = ({ value, color }) => {
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
       observer.disconnect();
-      const duration = 1100;
+      const duration = 3300;
       const start = Date.now();
       const tick = () => {
         const p = Math.min((Date.now() - start) / duration, 1);
@@ -808,17 +849,18 @@ function DatingCalendar() {
       alignItems: 'center', justifyContent: 'center',
       fontFamily: '"DM Sans", Outfit, sans-serif', cursor: 'pointer',
       position: 'relative', overflow: 'hidden', padding: '40px 24px',
-      textAlign: 'center', userSelect: 'none'
+      textAlign: 'center', userSelect: 'none',
+      animation: 'fadeSlideUp 0.6s cubic-bezier(0.16,1,0.3,1) both'
     };
     // Screen 0: pretty
     if (introStep === 0) {
       return /*#__PURE__*/React.createElement("div", {
         onClick: () => setIntroStep(1), style: introPageStyle
       }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
-      /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1 } },
+      /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1, animation: 'introFade 0.7s cubic-bezier(0.16,1,0.3,1) both' } },
         /*#__PURE__*/React.createElement("div", { style: { fontSize: '96px', marginBottom: '32px', animation: 'bob 3s ease-in-out infinite', display: 'inline-block', filter: `drop-shadow(0 0 40px ${C.pink}88)` } }, "🩷"),
-        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55` } }, "If you're reading this…"),
-        /*#__PURE__*/React.createElement("p", { style: { fontSize: '28px', fontWeight: '600', color: C.pink, margin: '0 0 56px 0', textShadow: `0 0 20px ${C.pink}66` } }, "it means you're pretty."),
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55`, animation: 'heroGlow 4s ease-in-out infinite 0.7s' } }, "If you're reading this…"),
+        /*#__PURE__*/React.createElement("p", { style: { fontSize: '28px', fontWeight: '600', color: C.pink, margin: '0 0 56px 0', textShadow: `0 0 20px ${C.pink}66`, animation: 'fadeSlideUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.15s both' } }, "it means you're pretty."),
         /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: '700', color: C.dim, letterSpacing: '0.05em', animation: 'bob 2s ease-in-out infinite' } }, "tap anywhere to continue →")
       ));
     }
@@ -826,8 +868,8 @@ function DatingCalendar() {
     return /*#__PURE__*/React.createElement("div", {
       onClick: () => setStep('landing'), style: introPageStyle
     }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
-    /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' } },
-      /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55` } }, "and intelligent, of course."),
+    /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', animation: 'introFade 0.7s cubic-bezier(0.16,1,0.3,1) both' } },
+      /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55` } , animation: 'heroGlow 4s ease-in-out infinite' }, "and intelligent, of course."),
       /*#__PURE__*/React.createElement("div", { style: { fontSize: '52px', marginBottom: '28px', letterSpacing: '6px', animation: 'bob 3s ease-in-out infinite', display: 'inline-block' } }, "\ud83d\ude0a\ud83e\udd70\ud83d\ude04\ud83e\udd29\ud83d\ude0d"),
       /*#__PURE__*/React.createElement("p", { style: { fontSize: '18px', fontWeight: '500', color: C.muted, margin: '0 0 56px 0' } }, "pretty was just the opening line."),
       /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: '700', color: C.dim, letterSpacing: '0.05em', animation: 'bob 2s ease-in-out infinite' } }, "tap to continue →")
@@ -1037,7 +1079,8 @@ function DatingCalendar() {
         padding: '14px 20px',
         background: 'linear-gradient(180deg, transparent, rgba(7,5,13,0.95) 30%)',
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        animation: 'stickyUp 0.4s cubic-bezier(0.16,1,0.3,1) both'
       }
     }, /*#__PURE__*/React.createElement("button", {
       onClick: () => setStep('questions'),
@@ -1053,7 +1096,8 @@ function DatingCalendar() {
         fontWeight: '700',
         cursor: 'pointer',
         boxShadow: `0 0 30px ${C.pink}66, 0 10px 30px rgba(0,0,0,0.4)`,
-        letterSpacing: '-0.003em'
+        letterSpacing: '-0.003em',
+        animation: 'ctaPulse 2.5s ease-in-out infinite'
       }
     }, "i'm intrigued →")));
   }
@@ -1308,15 +1352,15 @@ function DatingCalendar() {
   // FAQ / Questions Page
   if (step === 'questions') {
     return /*#__PURE__*/React.createElement("div", {
-      style: { background: C.pageBg, color: C.text, minHeight: '100vh', padding: '40px 20px 120px', fontFamily: '"DM Sans", Outfit, sans-serif', position: 'relative' }
+      style: { background: C.pageBg, color: C.text, minHeight: '100vh', padding: '40px 20px 120px', fontFamily: '"DM Sans", Outfit, sans-serif', position: 'relative', animation: 'fadeSlideUp 0.55s cubic-bezier(0.16,1,0.3,1) both' }
     },
     /*#__PURE__*/React.createElement(FloatingBackground, null),
     /*#__PURE__*/React.createElement(GrainOverlay, null),
     /*#__PURE__*/React.createElement("div", { style: { maxWidth: '500px', margin: '0 auto', position: 'relative', zIndex: 1 } },
-      /*#__PURE__*/React.createElement("button", { onClick: () => setStep('landing'), style: { background: 'none', border: 'none', color: C.pink, fontSize: '14px', cursor: 'pointer', marginBottom: '40px', fontWeight: '700', display: 'block' } }, "← Back"),
-      /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '38px', fontWeight: '600', margin: '0 0 8px 0', color: C.text, lineHeight: '1.15' } }, "a few FAQs."),
-      /*#__PURE__*/React.createElement("p", { style: { color: C.muted, fontSize: '15px', margin: '0 0 40px 0', fontWeight: '500' } }, "nothing scary, i promise."),
-      /*#__PURE__*/React.createElement("div", { style: { background: C.glass, backdropFilter: 'blur(16px)', borderRadius: '16px', padding: '8px 22px', border: `1.5px solid ${C.glassBorder}`, marginBottom: '40px' } },
+      /*#__PURE__*/React.createElement("button", { onClick: () => setStep('landing'), style: { background: 'none', border: 'none', color: C.pink, fontSize: '14px', cursor: 'pointer', marginBottom: '40px', fontWeight: '700', display: 'block', animation: 'fadeSlideDown 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both' } }, "← Back"),
+      /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '38px', fontWeight: '600', margin: '0 0 8px 0', color: C.text, lineHeight: '1.15', animation: 'fadeSlideUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s both' } }, "a few FAQs."),
+      /*#__PURE__*/React.createElement("p", { style: { color: C.muted, fontSize: '15px', margin: '0 0 40px 0', fontWeight: '500', animation: 'fadeSlideUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s both' } }, "nothing scary, i promise."),
+      /*#__PURE__*/React.createElement("div", { style: { background: C.glass, backdropFilter: 'blur(16px)', borderRadius: '16px', padding: '8px 22px', border: `1.5px solid ${C.glassBorder}`, marginBottom: '40px', animation: 'fadeSlideUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.3s both' } },
         /*#__PURE__*/React.createElement(FAQAccordion, {
           items: [{
             q: 'Do I have to be funny?',
@@ -1336,7 +1380,7 @@ function DatingCalendar() {
       /*#__PURE__*/React.createElement("button", {
         onClick: () => setStep('calendar'),
         style: { width: '100%', padding: '15px', borderRadius: '12px', border: 'none', background: `linear-gradient(135deg, ${C.pink} 0%, ${C.purple} 100%)`, color: '#fff', fontSize: '15px', fontWeight: '700', cursor: 'pointer', boxShadow: `0 0 30px ${C.pink}66, 0 10px 30px rgba(0,0,0,0.4)`, letterSpacing: '-0.003em' }
-      }, "sounds good - pick a date →")
+      , animation: 'ctaPulse 2.5s ease-in-out infinite' }, "sounds good - pick a date →")
     ));
   }
 
