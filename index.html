@@ -126,9 +126,8 @@
       100% { opacity: 0; transform: translate(-50%,-50%) translate(var(--dx),var(--dy)) scale(0.3); }
     }
     @keyframes cardGlowBorder {
-      0%,100% { box-shadow: 0 25px 60px rgba(0,0,0,0.35), 0 0 50px rgba(139,92,246,0.13), 0 0 0 1.5px rgba(255,46,154,0.3); }
-      33%     { box-shadow: 0 25px 60px rgba(0,0,0,0.4),  0 0 60px rgba(139,92,246,0.25), 0 0 0 1.5px rgba(139,92,246,0.5); }
-      66%     { box-shadow: 0 25px 60px rgba(0,0,0,0.35), 0 0 55px rgba(34,211,238,0.18), 0 0 0 1.5px rgba(34,211,238,0.4); }
+      0%,100% { box-shadow: 0 25px 60px rgba(0,0,0,0.35), 0 0 50px rgba(201,168,68,0.15), 0 0 0 1.5px rgba(201,168,68,0.35); }
+      50%     { box-shadow: 0 25px 60px rgba(0,0,0,0.4),  0 0 70px rgba(201,168,68,0.28), 0 0 0 1.5px rgba(201,168,68,0.6); }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -186,6 +185,7 @@ const C = {
   purple: '#8B5CF6',
   cyan: '#22D3EE',
   gold: '#FFB84D',
+  luxe: '#C9A844',
   green: '#34D399',
   text: '#F5F3FF',
   muted: '#ACA5CC',
@@ -707,28 +707,7 @@ const RotatingText = () => {
 };
 
 // 5. Viewer toast
-const ViewerToast = () => {
-  const [msg, setMsg] = React.useState(null);
-  React.useEffect(() => {
-    const show = (delay) => setTimeout(() => {
-      const n = Math.floor(Math.random() * 5) + 2;
-      setMsg(`👀 ${n} people viewed this today`);
-      setTimeout(() => setMsg(null), 3500);
-    }, delay);
-    const t1 = show(5000);
-    const t2 = show(18000);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
-  if (!msg) return null;
-  return /*#__PURE__*/React.createElement('div', { style: {
-    position: 'fixed', bottom: '90px', left: '50%', transform: 'translateX(-50%)',
-    background: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(20px)',
-    border: '1.5px solid rgba(255,255,255,0.14)', borderRadius: '30px',
-    padding: '10px 20px', fontSize: '13px', fontWeight: '600',
-    color: '#ACA5CC', zIndex: 200, whiteSpace: 'nowrap',
-    animation: 'fadeSlideUp 0.4s cubic-bezier(0.16,1,0.3,1) both',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
-  } }, msg);
+const ViewerToast = () => null;
 };
 
 // 6. Sound chime utility
@@ -1040,7 +1019,7 @@ function DatingCalendar() {
       }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
       /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1, animation: 'introFade 0.7s cubic-bezier(0.16,1,0.3,1) both' } },
         /*#__PURE__*/React.createElement("div", { style: { fontSize: '96px', marginBottom: '32px', animation: 'bob 3s ease-in-out infinite', display: 'inline-block', filter: `drop-shadow(0 0 40px ${C.pink}88)` } }, "🩷"),
-        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55`, animation: 'heroGlow 4s ease-in-out infinite 0.7s' } }, "If you're reading this…"),
+        /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.luxe}66`, animation: 'heroGlow 4s ease-in-out infinite 0.7s' } }, "If you're reading this…"),
         /*#__PURE__*/React.createElement("p", { style: { fontSize: '28px', fontWeight: '600', color: C.pink, margin: '0 0 56px 0', textShadow: `0 0 20px ${C.pink}66`, animation: 'fadeSlideUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.15s both' } }, "it means you're pretty."),
         /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: '700', color: C.dim, letterSpacing: '0.05em', animation: 'bob 2s ease-in-out infinite' } }, "tap anywhere to continue →")
       ));
@@ -1050,7 +1029,7 @@ function DatingCalendar() {
       onClick: (e) => { burstHearts(e.clientX, e.clientY); track('intro_tap', { screen: 1 }); setStep('landing'); }, style: introPageStyle
     }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
     /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', animation: 'introFade 0.7s cubic-bezier(0.16,1,0.3,1) both' } },
-      /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55` } , animation: 'heroGlow 4s ease-in-out infinite' }, "and intelligent, of course."),
+      /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.luxe}66` } , animation: 'heroGlow 4s ease-in-out infinite' }, "and intelligent, of course."),
       /*#__PURE__*/React.createElement("div", { style: { fontSize: '52px', marginBottom: '28px', letterSpacing: '6px', animation: 'bob 3s ease-in-out infinite', display: 'inline-block' } }, "\ud83d\ude0a\ud83e\udd70\ud83d\ude04\ud83e\udd29\ud83d\ude0d"),
       /*#__PURE__*/React.createElement("p", { style: { fontSize: '18px', fontWeight: '500', color: C.muted, margin: '0 0 56px 0' } }, "pretty was just the opening line."),
       /*#__PURE__*/React.createElement("div", { style: { fontSize: '14px', fontWeight: '700', color: C.dim, letterSpacing: '0.05em', animation: 'bob 2s ease-in-out infinite' } }, "tap to continue →")
@@ -1139,7 +1118,7 @@ function DatingCalendar() {
         lineHeight: '1.08',
         letterSpacing: '-0.01em',
         color: C.text,
-        textShadow: `0 0 40px ${C.purple}55`
+        textShadow: `0 0 40px ${C.luxe}66`
       }
     }, /*#__PURE__*/React.createElement(Typewriter, { text: "You got picked.", speed: 65 })), /*#__PURE__*/React.createElement("p", {
       style: {
@@ -1161,7 +1140,7 @@ function DatingCalendar() {
         padding: '36px 28px',
         border: `1.5px solid ${C.glassBorder}`,
         marginBottom: '28px',
-        boxShadow: `0 25px 60px rgba(0,0,0,0.35), 0 0 50px ${C.purple}22`,
+        boxShadow: `0 25px 60px rgba(0,0,0,0.35), 0 0 50px ${C.luxe}22`,
         animation: 'cardGlowBorder 4s ease-in-out infinite'
       }
     }, /*#__PURE__*/React.createElement("div", {
@@ -1195,7 +1174,8 @@ function DatingCalendar() {
         fontWeight: '700',
         color: C.dim,
         textTransform: 'uppercase',
-        letterSpacing: '0.6px'
+        letterSpacing: '0.6px',
+        color: C.luxe
       }
     }, "Avi · NYC"), /*#__PURE__*/React.createElement("p", {
       style: {
@@ -1216,7 +1196,7 @@ function DatingCalendar() {
     }, [{
       value: '45+',
       label: 'Successful Dates',
-      color: C.pink
+      color: C.luxe
     }, {
       value: '4.8★',
       label: 'Would go again',
