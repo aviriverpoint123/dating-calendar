@@ -115,6 +115,21 @@
       60%  { transform: scale(1.12) translateY(-3px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
+
+    @keyframes sparkleOut {
+      0%   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%,-50%) scale(0) translateY(-20px); }
+    }
+    @keyframes heartBurst {
+      0%   { opacity: 1; transform: translate(-50%,-50%) translate(0,0) scale(1); }
+      60%  { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%,-50%) translate(var(--dx),var(--dy)) scale(0.3); }
+    }
+    @keyframes cardGlowBorder {
+      0%,100% { box-shadow: 0 25px 60px rgba(0,0,0,0.35), 0 0 50px rgba(139,92,246,0.13), 0 0 0 1.5px rgba(255,46,154,0.3); }
+      33%     { box-shadow: 0 25px 60px rgba(0,0,0,0.4),  0 0 60px rgba(139,92,246,0.25), 0 0 0 1.5px rgba(139,92,246,0.5); }
+      66%     { box-shadow: 0 25px 60px rgba(0,0,0,0.35), 0 0 55px rgba(34,211,238,0.18), 0 0 0 1.5px rgba(34,211,238,0.4); }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -601,6 +616,155 @@ const TestimonialTicker = () => {
     )
   );
 };
+
+// 1. Cursor sparkle trail
+const CursorTrail = () => {
+  React.useEffect(() => {
+    const colors = ['#FF2E9A', '#8B5CF6', '#22D3EE', '#FFB84D', '#ff6eb4'];
+    const emojis = ['✦', '✧', '⋆', '✺', '·'];
+    let last = 0;
+    const onMove = (e) => {
+      const now = Date.now();
+      if (now - last < 40) return;
+      last = now;
+      const p = document.createElement('span');
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+      const size = 8 + Math.random() * 8;
+      p.textContent = emoji;
+      p.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;pointer-events:none;z-index:99999;font-size:${size}px;color:${color};text-shadow:0 0 8px ${color};animation:sparkleOut 0.7s ease forwards;transform:translate(-50%,-50%);`;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 700);
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
+  return null;
+};
+
+// 2. Scroll progress bar
+const ScrollProgress = () => {
+  const [pct, setPct] = React.useState(0);
+  React.useEffect(() => {
+    const onScroll = () => {
+      const el = document.documentElement;
+      setPct((el.scrollTop / (el.scrollHeight - el.clientHeight || 1)) * 100);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  return /*#__PURE__*/React.createElement('div', { style: {
+    position: 'fixed', top: 0, left: 0, height: '3px', zIndex: 1000,
+    pointerEvents: 'none', width: pct + '%',
+    background: `linear-gradient(90deg, #FF2E9A, #8B5CF6, #22D3EE)`,
+    boxShadow: '0 0 12px #FF2E9Aaa', transition: 'width 0.08s linear'
+  } });
+};
+
+// 3. Typewriter component
+const Typewriter = ({ text, speed = 55, style, delay = 0 }) => {
+  const [displayed, setDisplayed] = React.useState('');
+  const [started, setStarted] = React.useState(false);
+  React.useEffect(() => {
+    const t = setTimeout(() => setStarted(true), delay);
+    return () => clearTimeout(t);
+  }, []);
+  React.useEffect(() => {
+    if (!started) return;
+    let i = 0;
+    setDisplayed('');
+    const iv = setInterval(() => {
+      i++;
+      setDisplayed(text.slice(0, i));
+      if (i >= text.length) clearInterval(iv);
+    }, speed);
+    return () => clearInterval(iv);
+  }, [started, text]);
+  return /*#__PURE__*/React.createElement('span', { style },
+    displayed,
+    displayed.length < text.length
+      ? /*#__PURE__*/React.createElement('span', { style: { opacity: 0.7, animation: 'bob 0.6s ease-in-out infinite', display: 'inline-block' } }, '|')
+      : null
+  );
+};
+
+// 4. Rotating "open to" text
+const OPEN_TO = ['dinner.', 'cocktails.', 'a long walk.', 'good conversation.', 'a rooftop.', 'something spontaneous.', 'wherever the night goes.'];
+const RotatingText = () => {
+  const [idx, setIdx] = React.useState(0);
+  const [visible, setVisible] = React.useState(true);
+  React.useEffect(() => {
+    const iv = setInterval(() => {
+      setVisible(false);
+      setTimeout(() => { setIdx(i => (i + 1) % OPEN_TO.length); setVisible(true); }, 350);
+    }, 2800);
+    return () => clearInterval(iv);
+  }, []);
+  return /*#__PURE__*/React.createElement('span', {
+    style: { color: '#FF2E9A', transition: 'opacity 0.35s ease', opacity: visible ? 1 : 0, fontStyle: 'italic' }
+  }, OPEN_TO[idx]);
+};
+
+// 5. Viewer toast
+const ViewerToast = () => {
+  const [msg, setMsg] = React.useState(null);
+  React.useEffect(() => {
+    const show = (delay) => setTimeout(() => {
+      const n = Math.floor(Math.random() * 5) + 2;
+      setMsg(`👀 ${n} people viewed this today`);
+      setTimeout(() => setMsg(null), 3500);
+    }, delay);
+    const t1 = show(5000);
+    const t2 = show(18000);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
+  if (!msg) return null;
+  return /*#__PURE__*/React.createElement('div', { style: {
+    position: 'fixed', bottom: '90px', left: '50%', transform: 'translateX(-50%)',
+    background: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(20px)',
+    border: '1.5px solid rgba(255,255,255,0.14)', borderRadius: '30px',
+    padding: '10px 20px', fontSize: '13px', fontWeight: '600',
+    color: '#ACA5CC', zIndex: 200, whiteSpace: 'nowrap',
+    animation: 'fadeSlideUp 0.4s cubic-bezier(0.16,1,0.3,1) both',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
+  } }, msg);
+};
+
+// 6. Sound chime utility
+const playChime = (muted) => {
+  if (muted) return;
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [[523.25,0],[659.25,0.18],[783.99,0.36]].forEach(([freq, t]) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, ctx.currentTime + t);
+      gain.gain.linearRampToValueAtTime(0.25, ctx.currentTime + t + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.9);
+      osc.start(ctx.currentTime + t); osc.stop(ctx.currentTime + t + 1);
+    });
+  } catch(e) {}
+};
+
+// 7. Heart burst on tap
+const burstHearts = (x, y) => {
+  const items = ['🩷','💕','✨','💫','🌸','⭐'];
+  for (let i = 0; i < 10; i++) {
+    const el = document.createElement('div');
+    const angle = (i / 10) * Math.PI * 2;
+    const dist = 50 + Math.random() * 70;
+    const dx = Math.cos(angle) * dist;
+    const dy = Math.sin(angle) * dist;
+    const size = 14 + Math.random() * 14;
+    el.style.cssText = `position:fixed;left:${x}px;top:${y}px;font-size:${size}px;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);animation:heartBurst 0.9s cubic-bezier(0.16,1,0.3,1) forwards;--dx:${dx}px;--dy:${dy}px;`;
+    el.textContent = items[Math.floor(Math.random() * items.length)];
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 900);
+  }
+};
+
 const buildICSHref = booking => {
   if (!booking) return '#';
   const start = new Date(booking.year, booking.month - 1, booking.day, 20, 0, 0);
@@ -665,6 +829,7 @@ function DatingCalendar() {
   const [showStickyCTA, setShowStickyCTA] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cancelEgg, setCancelEgg] = useState(false);
+  const [muted, setMuted] = useState(false);
   const [introStep, setIntroStep] = useState(0);
   const [introTapped, setIntroTapped] = useState(false);
   const [hoveredBookedDay, setHoveredBookedDay] = useState(null);
@@ -838,7 +1003,7 @@ function DatingCalendar() {
     setFormData({ name: '', phone: '', instagram: '', location: '', about: '', referral: '' });
     setShowBookingForm(false);
     setIsSubmitting(false);
-    setStep('success');
+    playChime(muted); setStep('success');
   };
 
   // Intro Page
@@ -855,7 +1020,7 @@ function DatingCalendar() {
     // Screen 0: pretty
     if (introStep === 0) {
       return /*#__PURE__*/React.createElement("div", {
-        onClick: () => setIntroStep(1), style: introPageStyle
+        onClick: (e) => { burstHearts(e.clientX, e.clientY); setIntroStep(1); }, style: introPageStyle
       }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
       /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1, animation: 'introFade 0.7s cubic-bezier(0.16,1,0.3,1) both' } },
         /*#__PURE__*/React.createElement("div", { style: { fontSize: '96px', marginBottom: '32px', animation: 'bob 3s ease-in-out infinite', display: 'inline-block', filter: `drop-shadow(0 0 40px ${C.pink}88)` } }, "🩷"),
@@ -866,7 +1031,7 @@ function DatingCalendar() {
     }
     // Screen 1: intelligent
     return /*#__PURE__*/React.createElement("div", {
-      onClick: () => setStep('landing'), style: introPageStyle
+      onClick: (e) => { burstHearts(e.clientX, e.clientY); setStep('landing'); }, style: introPageStyle
     }, /*#__PURE__*/React.createElement(FloatingBackground, null), /*#__PURE__*/React.createElement(GrainOverlay, null),
     /*#__PURE__*/React.createElement("div", { style: { position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', animation: 'introFade 0.7s cubic-bezier(0.16,1,0.3,1) both' } },
       /*#__PURE__*/React.createElement("h1", { style: { fontFamily: C.serif, fontSize: '42px', fontWeight: '600', lineHeight: '1.15', letterSpacing: '-0.01em', margin: '0 0 20px 0', color: C.text, textShadow: `0 0 40px ${C.purple}55` } , animation: 'heroGlow 4s ease-in-out infinite' }, "and intelligent, of course."),
@@ -877,7 +1042,11 @@ function DatingCalendar() {
   }
 
   if (step === 'landing') {
-    return /*#__PURE__*/React.createElement("div", {
+    return /*#__PURE__*/React.createElement(React.Fragment, null,
+    /*#__PURE__*/React.createElement(CursorTrail, null),
+    /*#__PURE__*/React.createElement(ScrollProgress, null),
+    /*#__PURE__*/React.createElement(ViewerToast, null),
+    /*#__PURE__*/React.createElement("div", {
       style: {
         background: C.pageBg,
         backgroundSize: '160% 160%',
@@ -956,7 +1125,7 @@ function DatingCalendar() {
         color: C.text,
         textShadow: `0 0 40px ${C.purple}55`
       }
-    }, "You got picked."), /*#__PURE__*/React.createElement("p", {
+    }, /*#__PURE__*/React.createElement(Typewriter, { text: "You got picked.", speed: 65 })), /*#__PURE__*/React.createElement("p", {
       style: {
         fontSize: '18px',
         color: C.muted,
@@ -976,7 +1145,8 @@ function DatingCalendar() {
         padding: '36px 28px',
         border: `1.5px solid ${C.glassBorder}`,
         marginBottom: '28px',
-        boxShadow: `0 25px 60px rgba(0,0,0,0.35), 0 0 50px ${C.purple}22`
+        boxShadow: `0 25px 60px rgba(0,0,0,0.35), 0 0 50px ${C.purple}22`,
+        animation: 'cardGlowBorder 4s ease-in-out infinite'
       }
     }, /*#__PURE__*/React.createElement("div", {
       style: {
@@ -1099,7 +1269,7 @@ function DatingCalendar() {
         letterSpacing: '-0.003em',
         animation: 'ctaPulse 2.5s ease-in-out infinite'
       }
-    }, "i'm intrigued →")));
+    }, "i'm intrigued →"))));
   }
 
   // Success Page
